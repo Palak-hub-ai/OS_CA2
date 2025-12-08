@@ -20,3 +20,17 @@ class SharedResource:
         self.lock = threading.Lock()           # Monitor
         self.semaphore = threading.Semaphore(1)
 
+  # Monitor (synchronized method)
+    def work_with_monitor(self, name):
+        print(f"{name} waiting for MONITOR | State: BLOCKED")
+        with self.lock:
+            print(f"{name} entered MONITOR | State: RUNNING")
+            local = self.counter
+            time.sleep(0.1)
+            local += 1
+            self.counter = local
+            print(f"{name} exiting MONITOR | counter = {self.counter}")
+
+
+                            
+
