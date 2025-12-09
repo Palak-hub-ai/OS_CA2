@@ -31,6 +31,18 @@ class SharedResource:
             self.counter = local
             print(f"{name} exiting MONITOR | counter = {self.counter}")
 
-
-                            
+  # Semaphore-based sync
+    def work_with_semaphore(self, name):
+        print(f"{name} waiting for SEMAPHORE | State: BLOCKED")
+        self.semaphore.acquire()
+        try:
+            print(f"{name} acquired SEMAPHORE | State: RUNNING")
+            local = self.counter
+            time.sleep(0.1)
+            local += 1
+            self.counter = local
+            print(f"{name} releasing SEMAPHORE | counter = {self.counter}")
+        finally:
+            self.semaphore.release()
+       
 
